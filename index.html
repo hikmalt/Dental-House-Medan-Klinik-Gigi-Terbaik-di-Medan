@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental House Medan | Klinik Gigi Terbaik di Medan</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
+    <link rel="icon" href="logo/1.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll due to AOS or other animations */
+        }
+
+        .navbar {
+            transition: all 0.3s ease-in-out;
+            background-color: transparent; /* Default transparent */
+            backdrop-filter: blur(5px); /* Apply blur by default */
+            -webkit-backdrop-filter: blur(5px); /* Safari support */
+        }
+
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque white */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link, .navbar-logo-text, #menu-toggle i {
+            transition: all 0.3s ease-in-out;
+            color: white; /* Default white */
+        }
+
+        .navbar-scrolled .nav-link,
+        .navbar-scrolled .navbar-logo-text,
+        .navbar-scrolled #menu-toggle i {
+            color: #1a202c; /* Change to a dark color when scrolled */
+        }
+
+        /* NEW: Hero Background Swiper */
+        .hero-bg-swiper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Make it cover the full viewport height */
+            z-index: 1; /* Behind content */
+        }
+
+        .hero-bg-swiper .swiper-slide {
+            height: 100%; /* Ensure slides fill the container */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent; /* Ensure no residual background */
+        }
+
+        .bg-image-slide {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(60%); /* Darken the background images */
+            transition: background-image 1s ease-in-out; /* Smooth transition for background image */
+        }
+
+        /* NEW: Hero Content Swiper */
+        .hero-content-swiper {
+            position: relative; /* Position relative to the parent section */
+            height: 100vh; /* Make it cover the full viewport height */
+            z-index: 10; /* Above background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .hero-content-swiper .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal.open .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal .close:hover,
+        .modal .close:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #imageModal .modal-content {
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto; /* Allow height to adjust */
+        }
+
+        #imageModal #modalImage {
+            max-width: 90vw; /* Max width of viewport */
+            max-height: 90vh; /* Max height of viewport */
+            display: block; /* Remove extra space below image */
+            object-fit: contain; /* Ensure image fits within bounds */
+            border-radius: 8px;
+        }
+
+        #imageModal .close {
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            right: 40px;
+            top: 20px;
+        }
+
+        /* Doctor Modal specific adjustments */
+        #doctorModal .modal-content {
+            background-color: #fefefe;
+            max-width: 500px;
+            text-align: center;
+        }
+        #doctorModal img {
+            border: 4px solid #3b82f6; /* Blue border */
+        }
+        #doctorModal ul {
+            list-style: none;
+            padding: 0;
+        }
+        #doctorModal ul li {
+            text-align: left;
+            margin-bottom: 8px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+        }
+        #doctorModal ul li i {
+            margin-right: 10px;
+            color: #3b82f6;
+        }
+
+        /* NEW: Doctor Image Size */
+        .doctor-card-image {
+            width: 180px; /* Adjust size as needed */
+            height: 180px; /* Adjust size as needed */
+            transition: transform 0.3s ease;
+        }
+
+        .doctor-card-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* NEW: Doctor Image Modal */
+        #doctorImageModal .modal-content {
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #doctorImageModal #modalDoctorFullImage {
+            max-width: 95vw;
+            max-height: 95vh;
+            display: block;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        #doctorImageModal .close {
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            right: 40px;
+            top: 20px;
+        }
+
+
+        /* Swiper Customizations */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #3b82f6 !important; /* Blue color for navigation arrows */
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #3b82f6 !important; /* Blue color for active pagination dot */
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff; /* Or your brand color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+        .spinner {
+            border: 8px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Social Media Pop-up Button */
+        .social-media-popup-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column-reverse; /* Icons appear above the main button */
+            align-items: flex-end;
+        }
+
+        .social-media-button {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .social-media-button.main {
+            background-color: #3b82f6; /* Blue color */
+            font-size: 24px;
+        }
+
+        .social-media-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease-out;
+        }
+
+        .social-media-icons.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .social-media-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Modal Styles (Pastikan ini ada dan sesuai dengan desain Anda) */
+        .modal {
+            position: fixed;
+            z-index: 1000; /* Pastikan di atas elemen lain */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); /* Latar belakang gelap transparan */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Specific styles for the image modal content */
+        #imageModal .modal-content {
+            padding: 0;
+            background: transparent; /* Latar belakang transparan untuk konten gambar */
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto; /* Izinkan tinggi menyesuaikan gambar */
+        }
+
+        #imageModal #modalImage {
+            max-width: 90vw; /* Lebar maksimal 90% dari viewport width */
+            max-height: 90vh; /* Tinggi maksimal 90% dari viewport height */
+            display: block;
+            object-fit: contain; /* Pastikan gambar pas tanpa terpotong */
+            border-radius: 8px; /* Sudut membulat untuk gambar dalam modal */
+        }
+
+        #imageModal .close {
+            color: white; /* Warna tombol tutup putih */
+            text-shadow: 0 0 5px rgba(0,0,0,0.5); /* Bayangan teks agar lebih terlihat */
+            position: absolute;
+            right: 40px;
+            top: 20px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001; /* Pastikan tombol tutup di atas gambar */
+        }
+
+        /* Gallery-specific classes for show/hide */
+        .gallery-item {
+            /* Default display for gallery items. Tailwind's grid handles layout. */
+            /* No need for 'display: block;' here if Tailwind's grid classes are applied to parent */
+            transition: opacity 0.5s ease-in-out; /* Transisi untuk fade-in/out jika diperlukan */
+        }
+
+        .gallery-item.hidden {
+            display: none; /* Sembunyikan elemen sepenuhnya dari layout */
+            opacity: 0; /* Untuk efek fade-out jika JS mengelola transisi sebelum display:none */
+        }
+
+
+        .social-media-icon.whatsapp { background-color: #25D366; }
+        .social-media-icon.instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .social-media-icon.tiktok { background-color: #000; }
+
+        .social-media-icon:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading Dental House...</p>
+    </div>
+
+    <nav class="navbar fixed top-0 left-0 w-full z-50 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#hero" class="flex items-center">
+                <img src="logo/1.png" alt="Dental House Logo" class="h-10 w-10 mr-2">
+                <span class="navbar-logo-text text-white text-2xl font-bold">Dental House</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#hero" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Beranda</a>
+                <a href="#services" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Layanan</a>
+                <a href="#doctors" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Dokter</a>
+                <a href="#testimonials" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Testimoni</a>
+                <a href="#gallery" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Galeri</a>
+                <a href="#contact" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Kontak</a>
+                <a href="#recruitment" class="nav-link text-white hover:text-blue-200 transition-colors text-lg font-semibold">Karir</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-3xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-4 mt-2">
+            <a href="#hero" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Beranda</a>
+            <a href="#services" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Layanan</a>
+            <a href="#doctors" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Dokter</a>
+            <a href="#testimonials" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Testimoni</a>
+            <a href="#gallery" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Galeri</a>
+            <a href="#contact" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Kontak</a>
+            <a href="#recruitment" class="block px-6 py-2 text-gray-800 hover:bg-gray-100 transition-colors">Karir</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center">
+    <div class="swiper-container hero-bg-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/13.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/14.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/15.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/16.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/17.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/18.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/19.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/20.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/21.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/22.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/23.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/24.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/25.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/26.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('bleching/27.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/13.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/14.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/15.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/16.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/17.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/18.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/19.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/20.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/21.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/22.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/23.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/24.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/25.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/26.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/27.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/28.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/29.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/30.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/31.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/32.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/33.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/34.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/35.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/36.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/37.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/38.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/39.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/40.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/41.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/42.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/43.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/44.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/45.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/46.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('gigipalsu/47.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('implant/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('implant/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('implant/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('implant/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('implant/5.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/13.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/14.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/15.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/16.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/17.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/18.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/19.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/20.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/21.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/22.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/23.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/24.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/25.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/26.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/27.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kawatgigi/28.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('kidsfriendly/6.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/13.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/14.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/15.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/16.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/17.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('odontektomi/18.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('penambalan/11.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/13.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/14.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/15.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/16.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/17.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/18.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/19.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/20.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/21.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/22.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/23.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/24.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/25.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/26.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/27.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/28.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/29.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/30.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/31.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/32.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/33.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/34.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/35.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/36.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/37.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/38.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/39.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/40.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/41.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/42.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/43.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/44.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/45.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/46.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/47.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/48.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/49.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/50.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/51.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/52.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/53.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/54.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/55.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/56.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/57.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/58.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/59.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/60.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/61.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('scaling(karang)/62.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('story/9.jpg');"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/1.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/2.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/3.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/4.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/5.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/6.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/7.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/8.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/9.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/10.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/11.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/12.jpg');"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="bg-image-slide" style="background-image: url('testimonial/13.jpg');"></div>
+            </div>
+        </div>
+        </div>
+
+    <div class="swiper-container hero-content-swiper text-white">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                        Senyum Sehat & Percaya Diri Dimulai di Sini
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
+                        Layanan gigi profesional, ramah, dan terjangkau untuk seluruh keluarga di Medan.
+                    </p>
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+                        Buat Janji Temu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <img src="logo/1.png" alt="About Dental House" class="rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
+                </div>
+                <div data-aos="fade-left" data-aos-duration="1000">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">Tentang <span class="text-blue-600">Dental House</span></h2>
+                    <p class="text-gray-700 text-lg mb-4">
+                        Dental House Medan adalah klinik gigi terdepan yang berkomitmen untuk memberikan pelayanan kesehatan gigi dan mulut terbaik. Kami mengutamakan kesehatan, kenyamanan, dan kepuasan pasien dengan fasilitas modern dan tim dokter yang profesional.
+                    </p>
+                    <p class="text-gray-700 text-lg mb-6">
+                        Berlokasi strategis di Jl. Karya No.113, Medan Barat, kami hadir untuk menjadi solusi terpercaya bagi senyum sehat keluarga Anda.
+                    </p>
+                    <a href="#services" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                        Lihat Layanan Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Mengapa Memilih Dental House Medan?</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Kami berkomitmen untuk memberikan pengalaman perawatan gigi terbaik bagi Anda.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-gray-50 p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-stethoscope text-blue-600 text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Dokter Berpengalaman</h3>
+                    <p class="text-gray-700">Tim dokter gigi profesional dan berpengalaman siap memberikan perawatan terbaik.</p>
+                </div>
+                <div class="feature-card bg-gray-50 p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-hand-holding-medical text-blue-600 text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Teknologi Modern</h3>
+                    <p class="text-gray-700">Didukung peralatan canggih untuk diagnosis akurat dan perawatan yang efisien.</p>
+                </div>
+                <div class="feature-card bg-gray-50 p-8 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-clinic-medical text-blue-600 text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Lingkungan Nyaman</h3>
+                    <p class="text-gray-700">Klinik yang bersih, modern, dan suasana yang menenangkan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 bg-blue-500 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Layanan Unggulan Kami</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Kami menawarkan berbagai perawatan gigi komprehensif untuk kebutuhan Anda.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openModal('scaling')">
+                    <i class="fas fa-tooth text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Scaling (Pembersihan Karang Gigi)</h3>
+                    <p class="opacity-80">Menjaga kebersihan dan kesehatan gusi Anda.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openModal('tambal')">
+                    <i class="fas fa-fill-drip text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Tambal Gigi</h3>
+                    <p class="opacity-80">Memperbaiki gigi berlubang dengan bahan berkualitas.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="openModal('cabut')">
+                    <i class="fas fa-cut text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Cabut Gigi (Odontektomi)</h3>
+                    <p class="opacity-80">Prosedur pencabutan gigi yang aman dan nyaman.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="400" onclick="openModal('bleaching')">
+                    <i class="fas fa-lightbulb text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Bleaching (Pemutihan Gigi)</h3>
+                    <p class="opacity-80">Mencerahkan senyum Anda secara signifikan.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="500" onclick="openModal('gigipalsu')">
+                    <i class="fas fa-medkit text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Gigi Palsu (Gigi Tiruan)</h3>
+                    <p class="opacity-80">Solusi untuk menggantikan gigi yang hilang.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="600" onclick="openModal('implant')">
+                    <i class="fas fa-microchip text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Implant Gigi</h3>
+                    <p class="opacity-80">Solusi permanen untuk gigi yang hilang.</p>
+                </div>
+                <div class="service-card bg-blue-600 p-8 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="700" onclick="openModal('kawat')">
+                    <i class="fas fa-grip-lines text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Kawat Gigi (Orthodonti)</h3>
+                    <p class="opacity-80">Meratakan gigi untuk senyum yang lebih rapi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="serviceModal" class="modal">
+        <div class="modal-content relative">
+            <span class="close absolute top-2 right-4 text-gray-600 text-4xl" onclick="closeModal()">×</span>
+            <h2 id="modalTitle" class="text-3xl font-bold text-blue-600 mb-6"></h2>
+            <p id="modalDescription" class="text-gray-700 mb-8 leading-relaxed"></p>
+            <div id="modalImages" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                </div>
+        </div>
+    </div>
+
+    <section id="doctors" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Tim Dokter Kami</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Dokter gigi profesional dan berdedikasi untuk memberikan perawatan terbaik.
+                </p>
+            </div>
+
+            <div class="swiper doctor-swiper relative" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-white p-8 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">
+                            <img src="profil/2.jpg" alt="Drg. Diana Putri" class="doctor-card-image rounded-full object-cover mx-auto mb-6 border-4 border-blue-600 cursor-pointer" onclick="openDoctorImageModal('profil/2.jpg')">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-2">Drg. Rose Diana</h3>
+                            <p class="text-lg text-gray-700 mb-4">Dokter Gigi Umum & Estetika</p>
+                            <p class="text-gray-600 text-sm flex-grow">
+                                Berfokus pada estetika gigi, pemutihan, dan veneer untuk senyum menawan. Beliau juga ahli dalam perawatan gigi umum dan sangat teliti.
+                            </p>
+                            <button onclick="openDoctorModal('Drg. Rose Diana', 'Dokter Gigi Umum & Estetika', 'Drg. Rose Diana adalah seorang dokter gigi yang sangat berdedikasi dengan fokus pada kedokteran gigi estetika. Lulusan dengan predikat cum laude, drg. Diana memiliki keahlian khusus dalam prosedur pemutihan gigi, pemasangan veneer, dan restorasi estetika yang inovatif. Beliau selalu mengikuti perkembangan teknologi dan teknik terbaru untuk memberikan hasil terbaik bagi pasiennya. Pendekatan drg. Diana yang sabar, teliti, dan komunikatif memastikan setiap pasien merasa nyaman dan mendapatkan perawatan yang sesuai dengan kebutuhan dan harapan mereka.', 'profil/2.jpg')"
+                                class="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+                                Lihat Profil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDoctorModal()">×</span>
+            <img id="modalDoctorImage" src="" alt="Doctor Image" class="w-40 h-40 rounded-full object-cover mx-auto mb-6 border-4 border-blue-600">
+            <h3 id="modalDoctorName" class="text-3xl font-bold text-blue-600 mb-2"></h3>
+            <p id="modalDoctorSpecialty" class="text-xl text-gray-700 mb-6"></p>
+            <p id="modalDoctorDetails" class="text-gray-700 leading-relaxed text-left px-4"></p>
+        </div>
+    </div>
+
+    <div id="doctorImageModal" class="modal">
+        <span class="close" onclick="closeDoctorImageModal()">×</span>
+        <img class="modal-content" id="modalDoctorFullImage" src="" alt="Full size Doctor Image">
+    </div>
+
+    <section id="testimonials" class="py-20 bg-blue-700 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Apa Kata Pasien Kami?</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Baca pengalaman positif mereka setelah berkunjung ke Dental House Medan.
+                </p>
+            </div>
+
+            <div class="swiper testimonial-swiper relative" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-white text-gray-800 p-8 rounded-xl shadow-lg text-center flex flex-col items-center">
+                            <img src="profil/women.jpg" alt="Avatar Pasien" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-blue-500">
+                            <p class="text-lg italic mb-6 leading-relaxed">"Pelayanan sangat ramah dan profesional. Saya yang awalnya takut ke dokter gigi jadi merasa nyaman di Dental House Medan. Hasil scaling juga sangat bersih!"</p>
+                            <h4 class="text-xl font-bold text-blue-600">- Sarah P.</h4>
+                            <p class="text-md text-gray-600">Karyawati Swasta</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white text-gray-800 p-8 rounded-xl shadow-lg text-center flex flex-col items-center">
+                            <img src="profil/men.jpg" alt="Avatar Pasien" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-blue-500">
+                            <p class="text-lg italic mb-6 leading-relaxed">"Anak saya tidak rewel sama sekali saat ditambal. Dokter dan perawatnya sangat sabar dan mengerti cara menghadapi anak-anak. Terima kasih Dental House!"</p>
+                            <h4 class="text-xl font-bold text-blue-600">- Budi S.</h4>
+                            <p class="text-md text-gray-600">Orang Tua</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white text-gray-800 p-8 rounded-xl shadow-lg text-center flex flex-col items-center">
+                            <img src="profil/women.jpg" alt="Avatar Pasien" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-blue-500">
+                            <p class="text-lg italic mb-6 leading-relaxed">"Saya sangat puas dengan hasil bleaching gigi di sini. Senyum saya jadi lebih cerah dan percaya diri. Rekomendasi banget untuk perawatan estetika gigi!"</p>
+                            <h4 class="text-xl font-bold text-blue-600">- Clara M.</h4>
+                            <p class="text-md text-gray-600">Mahasiswa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pastikan Anda memiliki link ke style.css di bagian <head> file HTML Anda -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <!-- Bagian Galeri Klinik Kami -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Galeri Klinik Kami</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Lihat suasana klinik kami yang modern, nyaman, dan higienis, serta beberapa hasil perawatan kami.
+                </p>
+            </div>
+            <!-- Tambahkan id="gallery-container" pada div ini -->
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="bleching/1.jpg" alt="Bleaching 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/1.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="150">
+                    <img src="bleching/2.jpg" alt="Bleaching 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/2.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="bleching/3.jpg" alt="Bleaching 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/3.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="250">
+                    <img src="bleching/4.jpg" alt="Bleaching 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/4.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="bleching/5.jpg" alt="Bleaching 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/5.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="350">
+                    <img src="bleching/6.jpg" alt="Bleaching 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/6.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="bleching/7.jpg" alt="Bleaching 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/7.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="450">
+                    <img src="bleching/8.jpg" alt="Bleaching 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/8.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="500">
+                    <img src="bleching/9.jpg" alt="Bleaching 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/9.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="550">
+                    <img src="bleching/10.jpg" alt="Bleaching 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/10.jpg')">
+                </div>
+                  <div class="overflow-hidden rounded-lg shadow-lg gallery-item gallery-item" data-aos="fade-up" data-aos-delay="600">
+                    <img src="bleching/11.jpg" alt="Bleaching 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="650">
+                    <img src="bleching/12.jpg" alt="Bleaching 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="700">
+                    <img src="bleching/13.jpg" alt="Bleaching 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/13.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="750">
+                    <img src="bleching/14.jpg" alt="Bleaching 14" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/14.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="800">
+                    <img src="bleching/15.jpg" alt="Bleaching 15" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/15.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="850">
+                    <img src="bleching/16.jpg" alt="Bleaching 16" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/16.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="900">
+                    <img src="bleching/17.jpg" alt="Bleaching 17" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/17.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="950">
+                    <img src="bleching/18.jpg" alt="Bleaching 18" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/18.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1000">
+                    <img src="bleching/19.jpg" alt="Bleaching 19" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/19.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1050">
+                    <img src="bleching/20.jpg" alt="Bleaching 20" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/20.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1100">
+                    <img src="bleching/21.jpg" alt="Bleaching 21" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/21.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1150">
+                    <img src="bleching/22.jpg" alt="Bleaching 22" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/22.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1200">
+                    <img src="bleching/23.jpg" alt="Bleaching 23" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/23.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1250">
+                    <img src="bleching/24.jpg" alt="Bleaching 24" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/24.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1300">
+                    <img src="bleching/25.jpg" alt="Bleaching 25" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/25.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1350">
+                    <img src="bleching/26.jpg" alt="Bleaching 26" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/26.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up" data-aos-delay="1400">
+                    <img src="bleching/27.jpg" alt="Bleaching 27" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('bleching/27.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/1.jpg" alt="Gigi Palsu 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/2.jpg" alt="Gigi Palsu 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/3.jpg" alt="Gigi Palsu 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/4.jpg" alt="Gigi Palsu 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/5.jpg" alt="Gigi Palsu 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/6.jpg" alt="Gigi Palsu 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/7.jpg" alt="Gigi Palsu 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/8.jpg" alt="Gigi Palsu 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/9.jpg" alt="Gigi Palsu 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/10.jpg" alt="Gigi Palsu 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/11.jpg" alt="Gigi Palsu 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/12.jpg" alt="Gigi Palsu 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/13.jpg" alt="Gigi Palsu 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/13.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/14.jpg" alt="Gigi Palsu 14" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/14.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/15.jpg" alt="Gigi Palsu 15" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/15.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/16.jpg" alt="Gigi Palsu 16" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/16.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/17.jpg" alt="Gigi Palsu 17" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/17.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/18.jpg" alt="Gigi Palsu 18" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/18.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/19.jpg" alt="Gigi Palsu 19" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/19.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/20.jpg" alt="Gigi Palsu 20" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/20.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/21.jpg" alt="Gigi Palsu 21" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/21.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/22.jpg" alt="Gigi Palsu 22" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/22.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/23.jpg" alt="Gigi Palsu 23" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/23.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/24.jpg" alt="Gigi Palsu 24" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/24.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/25.jpg" alt="Gigi Palsu 25" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/25.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/26.jpg" alt="Gigi Palsu 26" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/26.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/27.jpg" alt="Gigi Palsu 27" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/27.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/28.jpg" alt="Gigi Palsu 28" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/28.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/29.jpg" alt="Gigi Palsu 29" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/29.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/30.jpg" alt="Gigi Palsu 30" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/30.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/31.jpg" alt="Gigi Palsu 31" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/31.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/32.jpg" alt="Gigi Palsu 32" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/32.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/33.jpg" alt="Gigi Palsu 33" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/33.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/34.jpg" alt="Gigi Palsu 34" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/34.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/35.jpg" alt="Gigi Palsu 35" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/35.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/36.jpg" alt="Gigi Palsu 36" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/36.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/37.jpg" alt="Gigi Palsu 37" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/37.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/38.jpg" alt="Gigi Palsu 38" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/38.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/39.jpg" alt="Gigi Palsu 39" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/39.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/40.jpg" alt="Gigi Palsu 40" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/40.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/41.jpg" alt="Gigi Palsu 41" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/41.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/42.jpg" alt="Gigi Palsu 42" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/42.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/43.jpg" alt="Gigi Palsu 43" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/43.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/44.jpg" alt="Gigi Palsu 44" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/44.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/45.jpg" alt="Gigi Palsu 45" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/45.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/46.jpg" alt="Gigi Palsu 46" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/46.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="gigipalsu/47.jpg" alt="Gigi Palsu 47" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('gigipalsu/47.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="implant/1.jpg" alt="Implant 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('implant/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="implant/2.jpg" alt="Implant 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('implant/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="implant/3.jpg" alt="Implant 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('implant/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="implant/4.jpg" alt="Implant 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('implant/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="implant/5.jpg" alt="Implant 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('implant/5.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/1.jpg" alt="Kawat Gigi 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/2.jpg" alt="Kawat Gigi 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/3.jpg" alt="Kawat Gigi 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/4.jpg" alt="Kawat Gigi 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/5.jpg" alt="Kawat Gigi 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/6.jpg" alt="Kawat Gigi 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/7.jpg" alt="Kawat Gigi 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/8.jpg" alt="Kawat Gigi 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/9.jpg" alt="Kawat Gigi 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/10.jpg" alt="Kawat Gigi 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/11.jpg" alt="Kawat Gigi 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/12.jpg" alt="Kawat Gigi 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/13.jpg" alt="Kawat Gigi 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/13.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/14.jpg" alt="Kawat Gigi 14" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/14.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/15.jpg" alt="Kawat Gigi 15" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/15.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/16.jpg" alt="Kawat Gigi 16" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/16.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/17.jpg" alt="Kawat Gigi 17" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/17.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/18.jpg" alt="Kawat Gigi 18" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/18.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/19.jpg" alt="Kawat Gigi 19" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/19.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/20.jpg" alt="Kawat Gigi 20" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/20.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/21.jpg" alt="Kawat Gigi 21" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/21.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/22.jpg" alt="Kawat Gigi 22" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/22.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/23.jpg" alt="Kawat Gigi 23" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/23.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/24.jpg" alt="Kawat Gigi 24" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/24.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/25.jpg" alt="Kawat Gigi 25" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/25.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/26.jpg" alt="Kawat Gigi 26" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/26.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/27.jpg" alt="Kawat Gigi 27" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/27.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kawatgigi/28.jpg" alt="Kawat Gigi 28" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kawatgigi/28.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/1.jpg" alt="Kids Friendly 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/2.jpg" alt="Kids Friendly 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/3.jpg" alt="Kids Friendly 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/4.jpg" alt="Kids Friendly 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/5.jpg" alt="Kids Friendly 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="kidsfriendly/6.jpg" alt="Kids Friendly 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('kidsfriendly/6.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="logo/1.png" alt="Logo Klinik" class="w-full h-64 object-contain bg-white p-4 transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('logo/1.png')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/1.jpg" alt="Odontektomi 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/2.jpg" alt="Odontektomi 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/3.jpg" alt="Odontektomi 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/4.jpg" alt="Odontektomi 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/5.jpg" alt="Odontektomi 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/6.jpg" alt="Odontektomi 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/7.jpg" alt="Odontektomi 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/8.jpg" alt="Odontektomi 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/9.jpg" alt="Odontektomi 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/10.jpg" alt="Odontektomi 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/11.jpg" alt="Odontektomi 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/12.jpg" alt="Odontektomi 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/13.jpg" alt="Odontektomi 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/13.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/14.jpg" alt="Odontektomi 14" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/14.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/15.jpg" alt="Odontektomi 15" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/15.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/16.jpg" alt="Odontektomi 16" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/16.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/17.jpg" alt="Odontektomi 17" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/17.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="odontektomi/18.jpg" alt="Odontektomi 18" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('odontektomi/18.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/1.jpg" alt="Penambalan 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/2.jpg" alt="Penambalan 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/3.jpg" alt="Penambalan 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/4.jpg" alt="Penambalan 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/5.jpg" alt="Penambalan 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/6.jpg" alt="Penambalan 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/7.jpg" alt="Penambalan 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/8.jpg" alt="Penambalan 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/9.jpg" alt="Penambalan 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/10.jpg" alt="Penambalan 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="penambalan/11.jpg" alt="Penambalan 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('penambalan/11.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/1.jpg" alt="Scaling Karang 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/2.jpg" alt="Scaling Karang 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/3.jpg" alt="Scaling Karang 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/4.jpg" alt="Scaling Karang 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/5.jpg" alt="Scaling Karang 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/6.jpg" alt="Scaling Karang 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/7.jpg" alt="Scaling Karang 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/8.jpg" alt="Scaling Karang 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/9.jpg" alt="Scaling Karang 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/10.jpg" alt="Scaling Karang 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/11.jpg" alt="Scaling Karang 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/12.jpg" alt="Scaling Karang 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/13.jpg" alt="Scaling Karang 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/13.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/14.jpg" alt="Scaling Karang 14" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/14.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/15.jpg" alt="Scaling Karang 15" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/15.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/16.jpg" alt="Scaling Karang 16" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/16.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/17.jpg" alt="Scaling Karang 17" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/17.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/18.jpg" alt="Scaling Karang 18" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/18.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/19.jpg" alt="Scaling Karang 19" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/19.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/20.jpg" alt="Scaling Karang 20" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/20.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/21.jpg" alt="Scaling Karang 21" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/21.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/22.jpg" alt="Scaling Karang 22" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/22.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/23.jpg" alt="Scaling Karang 23" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/23.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/24.jpg" alt="Scaling Karang 24" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/24.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/25.jpg" alt="Scaling Karang 25" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/25.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/26.jpg" alt="Scaling Karang 26" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/26.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/27.jpg" alt="Scaling Karang 27" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/27.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/28.jpg" alt="Scaling Karang 28" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/28.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/29.jpg" alt="Scaling Karang 29" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/29.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/30.jpg" alt="Scaling Karang 30" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/30.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/31.jpg" alt="Scaling Karang 31" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/31.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/32.jpg" alt="Scaling Karang 32" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/32.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/33.jpg" alt="Scaling Karang 33" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/33.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/34.jpg" alt="Scaling Karang 34" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/34.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/35.jpg" alt="Scaling Karang 35" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/35.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/36.jpg" alt="Scaling Karang 36" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/36.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/37.jpg" alt="Scaling Karang 37" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/37.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/38.jpg" alt="Scaling Karang 38" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/38.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/39.jpg" alt="Scaling Karang 39" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/39.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/40.jpg" alt="Scaling Karang 40" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/40.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/41.jpg" alt="Scaling Karang 41" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/41.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/42.jpg" alt="Scaling Karang 42" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/42.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/43.jpg" alt="Scaling Karang 43" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/43.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/44.jpg" alt="Scaling Karang 44" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/44.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/45.jpg" alt="Scaling Karang 45" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/45.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/46.jpg" alt="Scaling Karang 46" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/46.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/47.jpg" alt="Scaling Karang 47" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/47.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/48.jpg" alt="Scaling Karang 48" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/48.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/49.jpg" alt="Scaling Karang 49" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/49.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/50.jpg" alt="Scaling Karang 50" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/50.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/51.jpg" alt="Scaling Karang 51" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/51.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/52.jpg" alt="Scaling Karang 52" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/52.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/53.jpg" alt="Scaling Karang 53" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/53.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/54.jpg" alt="Scaling Karang 54" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/54.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/55.jpg" alt="Scaling Karang 55" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/55.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/56.jpg" alt="Scaling Karang 56" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/56.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/57.jpg" alt="Scaling Karang 57" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/57.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/58.jpg" alt="Scaling Karang 58" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/58.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/59.jpg" alt="Scaling Karang 59" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/59.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/60.jpg" alt="Scaling Karang 60" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/60.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/61.jpg" alt="Scaling Karang 61" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/61.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="scaling(karang)/62.jpg" alt="Scaling Karang 62" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('scaling(karang)/62.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/1.jpg" alt="Story 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/2.jpg" alt="Story 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/3.jpg" alt="Story 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/4.jpg" alt="Story 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/5.jpg" alt="Story 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/6.jpg" alt="Story 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/7.jpg" alt="Story 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/8.jpg" alt="Story 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="story/9.jpg" alt="Story 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('story/9.jpg')">
+                </div>
+
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/1.jpg" alt="Testimonial 1" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/1.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/2.jpg" alt="Testimonial 2" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/2.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/3.jpg" alt="Testimonial 3" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/3.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/4.jpg" alt="Testimonial 4" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/4.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/5.jpg" alt="Testimonial 5" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/5.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/6.jpg" alt="Testimonial 6" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/6.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/7.jpg" alt="Testimonial 7" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/7.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/8.jpg" alt="Testimonial 8" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/8.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/9.jpg" alt="Testimonial 9" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/9.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/10.jpg" alt="Testimonial 10" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/10.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/11.jpg" alt="Testimonial 11" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/11.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/12.jpg" alt="Testimonial 12" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/12.jpg')">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-lg gallery-item" data-aos="fade-up">
+                    <img src="testimonial/13.jpg" alt="Testimonial 13" class="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openImageModal('testimonial/13.jpg')">
+                </div>
+            </div>
+
+            <!-- Tombol Tampilkan Lebih Banyak -->
+            <div class="text-center mt-10" id="show-more-button-container">
+                <button id="showMoreBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Tampilkan Lebih Banyak
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal (letakkan ini di akhir body Anda, sebelum script tag) -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeImageModal()">×</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <section id="contact" class="py-20 bg-blue-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Hubungi Kami & Buat Janji</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Jangan ragu untuk menghubungi kami atau isi formulir di bawah ini untuk membuat janji temu.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white text-gray-800 p-8 rounded-xl shadow-lg" data-aos="fade-right" data-aos-duration="1000">
+                    <h3 class="text-3xl font-bold text-blue-600 mb-6">Informasi Kontak</h3>
+                    <p class="text-lg mb-4 flex items-center"><i class="fas fa-map-marker-alt mr-3 text-blue-600"></i> Jl. Karya No.113, Sei Agul, Kec. Medan Barat, Kota Medan, Sumatera Utara 20237</p>
+                    <p class="text-lg mb-4 flex items-center"><i class="fas fa-phone mr-3 text-blue-600"></i> +62 821-6522-3647</p>
+                    <p class="text-lg mb-4 flex items-center"><i class="fas fa-envelope mr-3 text-blue-600"></i> info@dentalhousemedan.com</p>
+                    <p class="text-lg mb-4 flex items-center"><i class="fas fa-clock mr-3 text-blue-600"></i> Senin - Sabtu: 09.00 - 21.00</p>
+                    <div class="mt-8">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.821360216447!2d98.65345797444158!3d3.597148996417774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30312e03233c467b%3A0xf6a7b7a6b7e6b7e6!2sJl.%20Karya%20No.113%2C%20Sei%20Agul%2C%20Kec.%20Medan%20Barat%2C%20Kota%20Medan%2C%20Sumatera%20Utara%2020237!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-md">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="bg-white text-gray-800 p-8 rounded-xl shadow-lg" data-aos="fade-left" data-aos-duration="1000">
+                    <h3 class="text-3xl font-bold text-blue-600 mb-6">Formulir Janji Temu</h3>
+                    <form id="appointmentForm" class="space-y-4">
+                        <div>
+                            <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap:</label>
+                            <input type="text" id="nama" name="nama" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nama Lengkap Anda" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Alamat Email Anda" required>
+                        </div>
+                        <div>
+                            <label for="telepon" class="block text-gray-700 text-sm font-bold mb-2">Nomor Telepon (WhatsApp):</label>
+                            <input type="tel" id="telepon" name="telepon" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Contoh: 6281234567890" required>
+                        </div>
+                        <div>
+                            <label for="tanggal" class="block text-gray-700 text-sm font-bold mb-2">Tanggal Janji Temu (Opsional):</label>
+                            <input type="date" id="tanggal" name="tanggal" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="layanan" class="block text-gray-700 text-sm font-bold mb-2">Layanan yang Diminta (Opsional):</label>
+                            <select id="layanan" name="layanan" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Pilih Layanan</option>
+                                <option value="Scaling (Pembersihan Karang Gigi)">Scaling (Pembersihan Karang Gigi)</option>
+                                <option value="Tambal Gigi">Tambal Gigi</option>
+                                <option value="Cabut Gigi (Odontektomi)">Cabut Gigi (Odontektomi)</option>
+                                <option value="Perawatan Saluran Akar (PSA)">Perawatan Saluran Akar (PSA)</option>
+                                <option value="Bleaching (Pemutihan Gigi)">Bleaching (Pemutihan Gigi)</option>
+                                <option value="Pemasangan Diamond Gigi">Pemasangan Diamond Gigi</option>
+                                <option value="Veneer Direct">Veneer Direct</option>
+                                <option value="Veneer Indirect">Veneer Indirect</option>
+                                <option value="Crown / Bridge">Crown / Bridge</option>
+                                <option value="Gigi Palsu (Gigi Tiruan)">Gigi Palsu (Gigi Tiruan)</option>
+                                <option value="Implant Gigi">Implant Gigi</option>
+                                <option value="Kawat Gigi (Orthodonti)">Kawat Gigi (Orthodonti)</option>
+                                <option value="Pemeriksaan Umum">Pemeriksaan Umum</option>
+                                <option value="Perawatan Gigi Anak">Perawatan Gigi Anak</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pesan" class="block text-gray-700 text-sm font-bold mb-2">Pesan Tambahan (Opsional):</label>
+                            <textarea id="pesan" name="pesan" rows="4" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tulis pesan atau pertanyaan Anda di sini..."></textarea>
+                        </div>
+                        <button type="button" onclick="sendAppointmentToWhatsApp()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out w-full">
+                            <i class="fab fa-whatsapp mr-2"></i> Kirim Pesan Janji Temu
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="recruitment" class="recruitment-section py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Bergabunglah dengan Tim Kami!</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Dental House Medan membuka kesempatan bagi Anda yang berdedikasi untuk bergabung dengan tim profesional kami.
+                </p>
+            </div>
+            <div class="recruitment-card bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-3xl font-bold text-blue-600 mb-6 text-center">Lowongan Tersedia</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-user-md mr-3 text-blue-600"></i> Dokter Gigi Umum</h4>
+                        <p class="text-gray-700 mb-4">
+                            Kami mencari Dokter Gigi Umum yang bersemangat, kompeten, dan memiliki komitmen tinggi terhadap pelayanan pasien.
+                        </p>
+                        <h5 class="text-xl font-semibold text-gray-800 mb-2">Kualifikasi:</h5>
+                        <ul class="list-none space-y-2 text-gray-700">
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Pendidikan S1 Kedokteran Gigi</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Memiliki STR dan SIP yang masih berlaku</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Berpengalaman minimal 1 tahun (fresh graduate dipertimbangkan)</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Mampu bekerja secara tim maupun individu</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Komunikatif dan berorientasi pada pasien</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-hands-helping mr-3 text-blue-600"></i> Asisten Dokter Gigi / Perawat Gigi</h4>
+                        <p class="text-gray-700 mb-4">
+                            Kami mencari Asisten Dokter Gigi atau Perawat Gigi yang cekatan, teliti, dan siap membantu kelancaran operasional klinik.
+                        </p>
+                        <h5 class="text-xl font-semibold text-gray-800 mb-2">Kualifikasi:</h5>
+                        <ul class="list-none space-y-2 text-gray-700">
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Pendidikan minimal D3 Keperawatan Gigi / Perawat</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Memiliki STR (bagi perawat gigi)</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Berpengalaman di klinik gigi diutamakan</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Mampu bekerja di bawah tekanan dan multitasking</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-blue-600"></i> Ramah dan memiliki inisiatif tinggi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-10">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Kirimkan CV dan surat lamaran Anda ke email:
+                        <a href="mailto:hrd@dentalhousemedan.com" class="text-blue-600 font-semibold hover:underline">drg.rosediana@gmail.com</a>
+                    </p>
+                    <p class="text-md text-gray-600">
+                        Kami tunggu bergabungnya Anda dengan keluarga besar Dental House Medan!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-2xl font-bold mb-4 flex items-center justify-center md:justify-start">
+                    <img src="logo/1.png" alt="Dental House Logo" class="h-8 w-8 mr-2"> Dental House
+                </h3>
+                <p class="text-gray-400">Solusi terbaik untuk senyum sehat dan indah Anda. Pelayanan profesional, terjangkau, dan nyaman.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Tautan Cepat</h3>
+                <ul class="space-y-2">
+                    <li><a href="#hero" class="hover:text-blue-400 transition-colors">Beranda</a></li>
+                    <li><a href="#services" class="hover:text-blue-400 transition-colors">Layanan</a></li>
+                    <li><a href="#doctors" class="hover:text-blue-400 transition-colors">Dokter</a></li>
+                    <li><a href="#testimonials" class="hover:text-blue-400 transition-colors">Testimoni</a></li>
+                    <li><a href="#gallery" class="hover:text-blue-400 transition-colors">Galeri</a></li>
+                    <li><a href="#contact" class="hover:text-blue-400 transition-colors">Kontak</a></li>
+                    <li><a href="#recruitment" class="hover:text-blue-400 transition-colors">Karir</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Ikuti Kami</h3>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="https://www.instagram.com/dentalhouse_id/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@dentalhouse_id" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-tiktok text-2xl"></i>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=6282165223647" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </a>
+                </div>
+                <h3 class="text-xl font-bold mb-4 mt-6">Lokasi Kami</h3>
+                <p class="text-gray-400">Jl. Karya No.113, Sei Agul, Kec. Medan Barat, Kota Medan, Sumatera Utara 20237</p>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            © 2025 Dental House Medan. Hak Cipta Dilindungi.
+        </div>
+    </footer>
+
+    <div class="social-media-popup-container">
+        <div class="social-media-button main" id="mainSocialButton">
+            <i class="fas fa-share-alt"></i>
+        </div>
+        <div class="social-media-icons" id="socialIconsPopup">
+            <a href="https://api.whatsapp.com/send?phone=6282165223647" target="_blank" class="social-media-icon whatsapp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/dentalhouse_id/" target="_blank" class="social-media-icon instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@dentalhouse_id" target="_blank" class="social-media-icon tiktok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Pastikan semua konten DOM dimuat sebelum menjalankan skrip
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded fired.');
+
+    // Inisialisasi AOS (pastikan AOS.js sudah dimuat di HTML Anda sebelum script.js)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            once: true, // Animasi hanya terjadi sekali saat elemen masuk viewport
+            duration: 1000, // Durasi animasi dalam milidetik
+            offset: 50, // Offset (dalam px) dari bagian atas layar untuk memicu animasi
+        });
+        console.log('AOS initialized.');
+    } else {
+        console.warn('Peringatan: Library AOS tidak ditemukan. Pastikan aos.js dimuat sebelum script.js.');
+    }
+
+    // --- Efek Scroll Navbar ---
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuToggleIcon = document.querySelector('#menu-toggle i');
+        const logoText = document.querySelector('.navbar-logo-text');
+
+        if (navbar && navLinks.length > 0 && menuToggleIcon && logoText) {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+                navLinks.forEach(link => link.classList.remove('text-white'));
+                menuToggleIcon.classList.remove('text-white');
+                logoText.classList.remove('text-white');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navLinks.forEach(link => link.classList.add('text-white'));
+                menuToggleIcon.classList.add('text-white');
+                logoText.classList.add('text-white');
+            }
+        }
+    });
+
+    // --- Toggle Menu Seluler ---
+    const menuToggleButton = document.getElementById('menu-toggle');
+    if (menuToggleButton) {
+        menuToggleButton.addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        });
+    }
+
+    // --- Sembunyikan layar loading setelah 2 detik ---
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                // Penting: Refresh AOS setelah loading screen hilang, jika elemen di bawahnya juga punya AOS
+                if (typeof AOS !== 'undefined') {
+                    AOS.refreshHard();
+                    console.log('AOS refreshed after loading screen.');
+                }
+            }, 1000); // Tunggu transisi opacity selesai
+        }, 2000);
+    }
+
+    // --- Tutup modal saat mengklik di luar (untuk Modal Dokter) ---
+    const doctorModal = document.getElementById('doctorModal');
+    if (doctorModal) {
+        doctorModal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeDoctorModal();
+            }
+        });
+    }
+
+    // --- Tutup modal gambar dokter saat mengklik di luar ---
+    const doctorImageModal = document.getElementById('doctorImageModal');
+    if (doctorImageModal) {
+        doctorImageModal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeDoctorImageModal();
+            }
+        });
+    }
+
+    // --- Inisialisasi Swiper (Testimonial, Dokter, Latar Belakang Hero, Konten Hero) ---
+    const testimonialSwiperElement = document.querySelector('.testimonial-swiper');
+    if (testimonialSwiperElement && typeof Swiper !== 'undefined') {
+        new Swiper('.testimonial-swiper', {
+            loop: true,
+            autoplay: { delay: 5000, disableOnInteraction: false, },
+            pagination: { el: '.swiper-pagination', clickable: true, },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev', },
+            spaceBetween: 30, slidesPerView: 1,
+        });
+    }
+
+    const doctorSwiperElement = document.querySelector('.doctor-swiper');
+    if (doctorSwiperElement && typeof Swiper !== 'undefined') {
+        new Swiper('.doctor-swiper', {
+            loop: false, autoplay: false,
+            pagination: { el: '.swiper-pagination', clickable: true, },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev', },
+            spaceBetween: 30, slidesPerView: 1,
+        });
+    }
+
+    const heroBgSwiperElement = document.querySelector('.hero-bg-swiper');
+    if (heroBgSwiperElement && typeof Swiper !== 'undefined') {
+        new Swiper('.hero-bg-swiper', {
+            loop: true, effect: 'fade', fadeEffect: { crossFade: true, },
+            autoplay: { delay: 6000, disableOnInteraction: false, },
+            speed: 1500, allowTouchMove: false,
+        });
+    }
+
+    const heroContentSwiperElement = document.querySelector('.hero-content-swiper');
+    if (heroContentSwiperElement && typeof Swiper !== 'undefined') {
+        new Swiper('.hero-content-swiper', {
+            loop: false, allowTouchMove: false,
+        });
+    }
+
+    // --- Fitur Baru: Pop-up Media Sosial ---
+    const mainSocialButton = document.getElementById('mainSocialButton');
+    const socialIconsPopup = document.getElementById('socialIconsPopup');
+
+    console.log('mainSocialButton:', mainSocialButton); // Debug: Cek apakah tombol utama ditemukan
+    console.log('socialIconsPopup:', socialIconsPopup); // Debug: Cek apakah popup ikon ditemukan
+
+    if (mainSocialButton && socialIconsPopup) {
+        mainSocialButton.addEventListener('click', () => {
+            socialIconsPopup.classList.toggle('active');
+            console.log('mainSocialButton clicked. socialIconsPopup active state:', socialIconsPopup.classList.contains('active')); // Debug: Cek state active
+        });
+        document.addEventListener('click', (event) => {
+            if (!mainSocialButton.contains(event.target) && !socialIconsPopup.contains(event.target)) {
+                socialIconsPopup.classList.remove('active');
+                console.log('Clicked outside. socialIconsPopup active state:', socialIconsPopup.classList.contains('active')); // Debug: Cek state active
+            }
+        });
+    } else {
+        console.warn('Peringatan: Elemen pop-up media sosial (mainSocialButton atau socialIconsPopup) tidak ditemukan.');
+    }
+
+    // --- Logika Tampilkan Lebih Banyak Galeri ---
+    const galleryContainer = document.getElementById('gallery-container');
+    let galleryItems = []; // Deklarasikan sebagai let agar bisa diisi ulang
+
+    if (galleryContainer) {
+        // Pertama, pastikan semua elemen div langsung di dalam gallery-container memiliki class 'gallery-item'
+        // Ini mengatasi kasus di mana user tidak ingin mengubah HTML secara manual
+        const directChildren = galleryContainer.children;
+        for (let i = 0; i < directChildren.length; i++) {
+            if (directChildren[i].tagName === 'DIV') { // Hanya tambahkan ke div
+                directChildren[i].classList.add('gallery-item');
+            }
+        }
+        galleryItems = galleryContainer.querySelectorAll('.gallery-item'); // Sekarang ambil semua item dengan class
+    }
+
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    const initialDisplayCount = 8; // Menampilkan 8 gambar pertama
+
+    console.log('Kontainer Galeri Ditemukan:', galleryContainer);
+    console.log('Jumlah Item Galeri Ditemukan:', galleryItems.length);
+    console.log('Tombol Tampilkan Lebih Banyak Ditemukan:', showMoreBtn);
+
+    if (galleryItems.length > 0) {
+        galleryItems.forEach((item, index) => {
+            if (index < initialDisplayCount) {
+                item.classList.remove('hidden'); // Pastikan 8 item pertama terlihat
+            } else {
+                item.classList.add('hidden'); // Sembunyikan item dari indeks ke-8 (gambar ke-9) dan seterusnya
+            }
+        });
+    }
+
+    // Periksa apakah ada lebih banyak item untuk ditampilkan dan tampilkan tombolnya
+    if (galleryItems.length > initialDisplayCount && showMoreBtn) {
+        showMoreBtn.style.display = 'block'; // Pastikan tombol terlihat
+        console.log('Tombol "Tampilkan Lebih Banyak" ditampilkan.');
+    } else if (showMoreBtn) {
+        showMoreBtn.style.display = 'none'; // Sembunyikan tombol jika semua item sudah ditampilkan
+        console.log('Tombol "Tampilkan Lebih Banyak" disembunyikan (tidak cukup item atau sudah semua ditampilkan).');
+    }
+
+    // Tambahkan event listener ke tombol "Tampilkan Lebih Banyak"
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', () => {
+            console.log('Tombol "Tampilkan Lebih Banyak" diklik!');
+            galleryItems.forEach(item => {
+                item.classList.remove('hidden'); // Hapus class 'hidden' untuk menampilkan semua gambar
+            });
+            showMoreBtn.style.display = 'none'; // Sembunyikan tombol setelah semua gambar ditampilkan
+            console.log('Semua item galeri ditampilkan. Tombol "Tampilkan Lebih Banyak" disembunyikan.');
+
+            // Refresh AOS setelah semua gambar ditampilkan
+            if (typeof AOS !== 'undefined') {
+                AOS.refreshHard();
+                console.log('AOS di-refresh setelah menampilkan semua galeri.');
+            }
+        });
+    }
+
+    // --- Event listener untuk menutup modal gambar saat mengklik di luar gambar ---
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeImageModal();
+            }
+        });
+    }
+
+    // --- Refresh AOS di akhir DOMContentLoaded untuk memastikan semua elemen terdaftar ---
+    // Ini penting untuk elemen-elemen di bawah galeri yang mungkin terpengaruh.
+    if (typeof AOS !== 'undefined') {
+        AOS.refreshHard();
+        console.log('AOS refreshed at the end of DOMContentLoaded.');
+    }
+
+}); // Akhir dari DOMContentLoaded
+
+// --- Fungsi Global (di luar DOMContentLoaded agar dapat diakses oleh atribut onclick) ---
+
+function openImageModal(imgSrc) {
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    if (imageModal && modalImage) {
+        modalImage.src = imgSrc;
+        imageModal.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Mencegah scrolling pada body saat modal terbuka
+        console.log('Modal gambar dibuka untuk:', imgSrc);
+    } else {
+        console.error('Elemen modal gambar atau gambar modal tidak ditemukan.');
+    }
+}
+
+function closeImageModal() {
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.classList.remove('open');
+        setTimeout(() => {
+            document.body.style.overflow = ''; // Mengembalikan scrolling pada body
+            console.log('Modal gambar ditutup.');
+        }, 300);
+    }
+}
+
+// Fungsi Modal Dokter
+function openDoctorModal(name, specialty, details, imageUrl) {
+    const modalDoctorImage = document.getElementById('modalDoctorImage');
+    const modalDoctorName = document.getElementById('modalDoctorName');
+    const modalDoctorSpecialty = document.getElementById('modalDoctorSpecialty');
+    const modalDoctorDetails = document.getElementById('modalDoctorDetails');
+    const doctorModal = document.getElementById('doctorModal');
+
+    if (modalDoctorImage && modalDoctorName && modalDoctorSpecialty && modalDoctorDetails && doctorModal) {
+        modalDoctorImage.src = imageUrl;
+        modalDoctorName.innerText = name;
+        modalDoctorSpecialty.innerText = specialty;
+        modalDoctorDetails.innerText = details;
+        doctorModal.classList.remove('hidden');
+        doctorModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeDoctorModal() {
+    const doctorModal = document.getElementById('doctorModal');
+    if (doctorModal) {
+        doctorModal.classList.remove('open');
+        setTimeout(() => {
+            doctorModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+// Fungsi Modal Gambar Dokter Baru
+function openDoctorImageModal(imgSrc) {
+    const doctorImageModal = document.getElementById('doctorImageModal');
+    const modalDoctorFullImage = document.getElementById('modalDoctorFullImage');
+    if (doctorImageModal && modalDoctorFullImage) {
+        modalDoctorFullImage.src = imgSrc;
+        doctorImageModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeDoctorImageModal() {
+    const doctorImageModal = document.getElementById('doctorImageModal');
+    if (doctorImageModal) {
+        doctorImageModal.classList.remove('open');
+        setTimeout(() => {
+            doctorImageModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+// Modal Layanan (Fungsionalitas yang sudah ada)
+function openModal(serviceId) {
+    const modal = document.getElementById('serviceModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalImages = document.getElementById('modalImages');
+
+    const services = {
+        'scaling': { title: 'Scaling (Pembersihan Karang Gigi)', description: 'Pembersihan karang gigi profesional untuk menghilangkan plak dan karang yang menumpuk. Mencegah radang gusi dan menjaga kesehatan mulut secara keseluruhan. Prosedur ini direkomendasikan setiap 6 bulan sekali.', images: ['scaling(karang)/15.jpg'] },
+        'tambal': { title: 'Tambal Gigi', description: 'Penambalan gigi untuk memperbaiki gigi berlubang atau rusak akibat karies. Kami menggunakan bahan tambal berkualitas tinggi yang estetis dan tahan lama, menyesuaikan warna gigi alami Anda.', images: ['penambalan/1.jpg'] },
+        'cabut': { title: 'Cabut Gigi (Odontektomi)', description: 'Pencabutan gigi yang tidak dapat dipertahankan lagi, termasuk odontektomi (pencabutan gigi bungsu yang impaksi). Dilakukan dengan teknik minimal invasif untuk mengurangi rasa sakit dan mempercepat pemulihan.', images: ['odontektomi/1.jpg'] },
+        'bleaching': { title: 'Bleaching (Pemutihan Gigi)', description: 'Proses pemutihan gigi yang aman dan efektif untuk mencerahkan warna gigi yang kusam atau kuning. Dilakukan oleh profesional menggunakan bahan pemutih khusus dan lampu LED untuk hasil optimal.', images: ['bleching/1.jpg'] },
+        'gigipalsu': { title: 'Gigi Palsu (Gigi Tiruan)', description: 'Solusi untuk menggantikan gigi yang hilang, tersedia dalam berbagai jenis: lepasan (removable denture) dan permanen (fixed bridge atau implan). Mengembalikan fungsi kunyah dan estetika senyum Anda.', images: ['gigipalsu/1.jpg'] },
+        'implant': { title: 'Implant Gigi', description: 'Solusi permanen dan paling menyerupai gigi asli untuk mengganti gigi yang hilang. Akar buatan (titanium) ditanamkan ke tulang rahang, kemudian dipasang mahkota gigi di atasnya. Hasilnya sangat stabil dan natural.', images: ['implant/1.jpg'] },
+        'kawat': { title: 'Kawat Gigi (Orthodonti)', description: 'Perawatan ortodontik untuk meratakan gigi yang tidak rapi, mengatasi masalah gigitan, dan meningkatkan estetika senyum. Tersedia pilihan kawat gigi metal, keramik, hingga aligner transparan.', images: ['kawatgigi/1.jpg'] }
+    };
+
+    const service = services[serviceId];
+    if (service && modal && modalTitle && modalDescription && modalImages) {
+        modalTitle.textContent = service.title;
+        modalDescription.textContent = service.description;
+        modalImages.innerHTML = '';
+        service.images.forEach(imgSrc => {
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = service.title;
+            img.classList.add('w-full', 'h-48', 'object-cover', 'rounded-lg', 'shadow-md', 'mb-4');
+            modalImages.appendChild(img);
+        });
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeModal() {
+    const serviceModal = document.getElementById('serviceModal');
+    if (serviceModal) {
+        serviceModal.classList.remove('open');
+        setTimeout(() => {
+            serviceModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+// Fitur Baru: Pengiriman Formulir ke WhatsApp
+function sendAppointmentToWhatsApp() {
+    const nama = document.getElementById('nama') ? document.getElementById('nama').value : '';
+    const email = document.getElementById('email') ? document.getElementById('email').value : '';
+    const telepon = document.getElementById('telepon') ? document.getElementById('telepon').value : '';
+    const tanggal = document.getElementById('tanggal') ? document.getElementById('tanggal').value : '';
+    const layanan = document.getElementById('layanan') ? document.getElementById('layanan').value : '';
+    const pesan = document.getElementById('pesan') ? document.getElementById('pesan').value : '';
+
+    if (!nama || !telepon) {
+        console.error('Nama lengkap dan Nomor Telepon (WhatsApp) wajib diisi.');
+        return;
+    }
+
+    const whatsappNumber = '6282165223647';
+
+    let whatsappMessage = `Halo Dental House Medan, saya ingin membuat janji temu.\n\n`;
+    whatsappMessage += `*Data Pasien:*\n`;
+    whatsappMessage += `Nama: ${nama}\n`;
+    whatsappMessage += `Email: ${email || '-'}\n`;
+    whatsappMessage += `Nomor Telepon: ${telepon}\n`;
+    if (tanggal) {
+        whatsappMessage += `Tanggal Janji Temu: ${tanggal}\n`;
+    }
+    if (layanan) {
+        whatsappMessage += `Layanan yang Diminta: ${layanan}\n`;
+    }
+    if (pesan) {
+        whatsappMessage += `Pesan Tambahan: ${pesan}\n`;
+    }
+    whatsappMessage += `\nTerima kasih.`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappURL, '_blank');
+}
+
+    </script>
+</body>
+</html>
